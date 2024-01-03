@@ -25,7 +25,7 @@
           }
         ],
         "event": "ON_PAGE_GENERATE",
-        "functionName": "default"
+        "functionName": "Generate"
       },
       {
         "pluginName": "posts-00010",
