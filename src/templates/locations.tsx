@@ -174,7 +174,7 @@ const Location: Template<TemplateRenderProps> = ({
             <Details address={address} phone={mainPhone} />
             {hours && <Hours title={"Restaurant Hours"} hours={hours} />}
             {description && <About name={name} description={description} />}
-            {logo && <img src={logo} />}
+            {logo && <img src={logo.image.url} />}
           </div>
         </div>
       </PageLayout>
