@@ -10,11 +10,7 @@ const EditTool = ({ data }: EditToolProps) => {
   const { uid, businessId } = data;
   const [isOpen, setIsOpen] = useState(true);
 
-  const editUrl =
-    // change YEXT_PUBLIC_UNIVERSE to production in the .env file if you are using a production account
-    YEXT_PUBLIC_UNIVERSE === "sandbox"
-      ? `https://sandbox.yext.com/s/${businessId}/entity/edit3?entityIds=${uid}`
-      : `https://yext.com/s/${businessId}/entity/edit3?entityIds=${uid}`;
+  const editUrl = `https://yext.com/s/${businessId}/entity/edit3?entityIds=${uid}`;
 
   const onCloseClick = () => {
     setIsOpen(false);
