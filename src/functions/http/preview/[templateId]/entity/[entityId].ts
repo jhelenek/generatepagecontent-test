@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 const API_DOMAIN = 'https://api.yextapis.com';
 // API key for an app with SitesAPI read permissions
-const API_KEY = '1180012a82bbd5acd01414744612c3df';
+const API_KEY = '2ddc800c7a002cb2b6f80a2e6c1a7181';
 const V_PARAM = '20240103';
 
 export default async function generatePreview(
