@@ -53,7 +53,7 @@ export const config: TemplateConfig = {
       "description",
       "hours",
       "slug",
-      "businessLogo",
+      "logo",
     ],
     // The entity language profiles that documents will be generated for.
     localization: {
@@ -161,6 +161,7 @@ const Location: Template<TemplateRenderProps> = ({
     hours,
     mainPhone,
     description,
+    logo,
     siteDomain,
   } = document;
 
@@ -173,6 +174,7 @@ const Location: Template<TemplateRenderProps> = ({
             <Details address={address} phone={mainPhone} />
             {hours && <Hours title={"Restaurant Hours"} hours={hours} />}
             {description && <About name={name} description={description} />}
+            {logo && <img src={logo} />}
           </div>
         </div>
       </PageLayout>
