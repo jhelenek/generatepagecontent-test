@@ -85,7 +85,7 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
  * a new deploy.
  */
 export const getRedirects: GetRedirects<TemplateProps> = ({ document }) => {
-  return [`redirect-source/${getPath(document)}`];
+  return [];
 };
 
 /**
