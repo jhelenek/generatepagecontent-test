@@ -4,6 +4,10 @@
       {
         "root": "dist",
         "pattern": "assets/**/*"
+      },
+      {
+        "root": "dist/public_assets",
+        "pattern": "**/*"
       }
     ],
     "features": "sites-config/features.json",
@@ -17,7 +21,7 @@
           },
           {
             "root": "dist",
-            "pattern": "assets/{server,static,renderer,render}/**/*{.js,.css}"
+            "pattern": "assets/{server,static,renderer,render,client}/**/*{.js,.css}"
           }
         ],
         "event": "ON_PAGE_GENERATE",
