@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetch } from "@yext/pages/util";
+import fetch from 'node-fetch';
 import "../index.css";
 import {
   Template,
