@@ -5,7 +5,7 @@ console.log("In suggestion.ts");
 
 const API_DOMAIN = 'https://api.yextapis.com';
 // API key for an app with SitesAPI read permissions
-const API_KEY = '2ddc800c7a002cb2b6f80a2e6c1a7181';
+const API_KEY = '45a57ddfe984988b7f78680642654b2c';
 const V_PARAM = '20240103';
 
 console.log("Consts initialized");
