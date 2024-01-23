@@ -1,7 +1,7 @@
 import { SitesHttpRequest, SitesHttpResponse } from "@yext/pages/*";
 import fetch from 'node-fetch';
 
-const API_DOMAIN = 'dev.yext.com';
+const API_DOMAIN = 'https://dev.yext.com';
 // API key for an app with SitesAPI read permissions
 const API_KEY = '45a57ddfe984988b7f78680642654b2c';
 const V_PARAM = '20240103';
