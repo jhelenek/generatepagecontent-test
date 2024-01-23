@@ -37,6 +37,7 @@ export default async function generatePreview(
   console.log("After generating response");
   // Fix relativePrefixToRoot for serverless function path.
   const html = generateJson.response.content as string;
+  console.log(html);
   const htmlWithCorrectPath = html.replaceAll(/(\.\.\/)+/g, '../../../');
 
   return {
