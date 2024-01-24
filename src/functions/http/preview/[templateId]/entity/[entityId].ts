@@ -1,9 +1,9 @@
 import { SitesHttpRequest, SitesHttpResponse } from "@yext/pages/*";
 import fetch from 'node-fetch';
 
-const API_DOMAIN = 'https://dev.yext.com';
+const API_DOMAIN = 'https://qa-api.yextapis.com';
 // API key for an app with SitesAPI read permissions
-const API_KEY = '45a57ddfe984988b7f78680642654b2c';
+const API_KEY = '838e42c3c62c49afdb3b3b825e40c415';
 const V_PARAM = '20240103';
 
 export default async function generatePreview(
