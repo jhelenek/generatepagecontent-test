@@ -14,7 +14,7 @@ export default async function generatePreview(
   // Get parameters for SitesAPI calls
   const templateId = pathParams['templateId'];
   const entityId = pathParams['entityId'];
-  const servingURL = pathParams['servingURL'];
+  const servingURL = request.requestUrl;
   const siteId = site.siteId;
   const deploymentId = site.deployId;
 
