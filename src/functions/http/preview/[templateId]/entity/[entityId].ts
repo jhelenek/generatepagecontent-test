@@ -14,6 +14,7 @@ export default async function generatePreview(
   // Get parameters for SitesAPI calls
   const templateId = pathParams['templateId'];
   const entityId = pathParams['entityId'];
+  const servingURL = pathParams['servingURL'];
   const siteId = site.siteId;
   const deploymentId = site.deployId;
 
@@ -23,7 +24,7 @@ export default async function generatePreview(
   const entityData = entityJson.response.document;
 
   // Generate page content using fetched document
-  const generateResponse = await fetch(`${API_DOMAIN}/v2/accounts/me/sites/${siteId}/generatepagecontent?templateId=${templateId}&deploymentId=${deploymentId}&api_key=${API_KEY}&v=${V_PARAM}`, 
+  const generateResponse = await fetch(`${API_DOMAIN}/v2/accounts/me/sites/${siteId}/generatepagecontent?templateId=${templateId}&servingURL=${servingURL}&deploymentId=${deploymentId}&api_key=${API_KEY}&v=${V_PARAM}`, 
     {method: 'POST', body: JSON.stringify(entityData), headers: {'Content-Type': 'application/json'}});
   const generateJson = await generateResponse.json();
 
