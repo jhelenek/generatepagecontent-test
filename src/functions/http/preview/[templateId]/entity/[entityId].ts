@@ -20,7 +20,11 @@ export default async function generatePreview(
 
   // Retrieve entity document
   const entityResponse = await fetch(`${API_DOMAIN}/v2/accounts/me/sites/${siteId}/fetchentitydocument?entityId=${entityId}&templateId=${templateId}&deploymentId=${deploymentId}&api_key=${API_KEY}&v=${V_PARAM}`);
+  console.log("entityResponse");
+  console.log(entityResponse);
   const entityJson = await entityResponse.json();
+  console.log("entityJson");
+  console.log(entityJson)
   const entityData = entityJson.response.document;
 
   // Generate page content using fetched document
