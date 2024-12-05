@@ -1,13 +1,14 @@
 /**
  * This is an example of how to create a template that makes use of streams data.
  * The stream data originates from Yext's Knowledge Graph. When a template in
- * concert with a stream is built by the Yext Sites system, a static html page
+ * concert with a stream is built by the Yext Pages system, a static html page
  * is generated for every corresponding (based on the filter) stream document.
  *
  * Another way to think about it is that a page will be generated using this
  * template for every eligible entity in your Knowledge Graph.
  */
-// comment
+
+import * as React from "react";
 import {
   GetHeadConfig,
   GetPath,
@@ -17,15 +18,17 @@ import {
   TemplateConfig,
   TemplateProps,
   TemplateRenderProps,
+  TransformProps,
 } from "@yext/pages";
-import * as React from "react";
-import Details from "../components/details";
-import Hours from "../components/hours";
-import List from "../components/list";
-import PageLayout from "../components/page-layout";
-import StaticMap from "../components/static-map";
-import Favicon from "../public/yext-favicon.ico";
+import { isProduction } from "@yext/pages/util";
 import "../index.css";
+import Favicon from "../assets/images/yext-favicon.ico";
+import About from "../components/About";
+import Banner from "../components/Banner";
+import Details from "../components/Details";
+import Hours from "../components/Hours";
+import PageLayout from "../components/PageLayout";
+import EditTool from "../components/EditTool";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -33,35 +36,46 @@ import "../index.css";
 export const config: TemplateConfig = {
   stream: {
     $id: "restaurant-stream",
+    // Defines the scope of entities that qualify for this stream.
+    // You can use entityTypes, savedFilterIds, and/or entityIds
     filter: {
-      "entityTypes": ["restaurant"]
+      entityTypes: ["restaurant"],
     },
-    // Specifies the exact data that each generated document will contain. This data is passed in
-    // directly as props to the default exported function.
+    // Specifies the exact data that each generated document will contain.
+    // This data is passed in directly as props to the default exported function.
     fields: [
+      "id",
       "uid",
       "meta",
       "name",
-      "slug",
+      "address",
+      "mainPhone",
       "description",
+      "hours",
+      "slug",
+      "logo",
     ],
     // The entity language profiles that documents will be generated for.
     localization: {
-      locales: ["en"]
+      locales: ["en"],
+      primary: false,
     },
+    transform: {},
   },
 };
 
 /**
  * Defines the path that the generated file will live at for production.
  *
- * NOTE: This currently has no impact on the local dev path. Local dev urls currently
- * take on the form: featureName/entityId
+ * NOTE: To preview production URLs locally, you must return document.slug from this function
+ * and ensure that each entity has the slug field pouplated.
  */
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
   return document.slug
-    ? document.slug + "6"
-    : document.name + "_" + document.uid + "6";
+    ? document.slug
+    : `${document.locale}/${document.address.region}/${document.address.city}/${
+        document.address.line1
+      }-${document.id.toString()}`;
 };
 
 /**
@@ -70,9 +84,9 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
  * NOTE: This currently has no impact on the local dev path. Redirects will be setup on
  * a new deploy.
  */
-/*export const getRedirects: GetRedirects<TemplateProps> = ({ document }) => {
-  return [`index-old/${document.id.toString()}`];
-};*/
+export const getRedirects: GetRedirects<TemplateProps> = ({ document }) => {
+  return [];
+};
 
 /**
  * This allows the user to define a function which will take in their template
@@ -81,8 +95,6 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
  * This can include the title, meta tags, script tags, etc.
  */
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
   document,
 }): HeadConfig => {
   return {
@@ -100,12 +112,33 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
       {
         type: "link",
         attributes: {
-          rel: 'icon',
-          type: 'image/x-icon',
-          href: Favicon
+          rel: "icon",
+          type: "image/x-icon",
+          href: Favicon,
         },
-      }
+      },
     ],
+  };
+};
+
+/**
+ * Required only when data needs to be retrieved from an external (non-Knowledge Graph) source.
+ * If the page is truly static this function is not necessary.
+ *
+ * This function will be run during generation and pass in directly as props to the default
+ * exported function.
+ */
+export const transformProps: TransformProps<any> = async (data) => {
+  const { dm_directoryParents, name } = data.document;
+
+  (dm_directoryParents || []).push({ name: name, slug: "" });
+
+  return {
+    ...data,
+    document: {
+      ...data.document,
+      dm_directoryParents: dm_directoryParents,
+    },
   };
 };
 
@@ -120,22 +153,33 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
  */
 const Location: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
-  path,
   document,
 }) => {
   const {
-    _site,
     name,
     address,
+    hours,
+    mainPhone,
     description,
+    logo,
+    siteDomain,
   } = document;
+
   return (
     <>
-      <PageLayout _site={_site}>
-        <div>Descriptionn: {description}</div>
-        <div>Site Title: {_site.c_siteTitle}</div>
-        <div>Site Description: {_site.c_siteDescription}</div>
+      <PageLayout>
+        <Banner name={name} address={address} />
+        <div className="centered-container">
+          <div className="grid gap-x-10 gap-y-10 md:grid-cols-2">
+            <Details address={address} phone={mainPhone} />
+            {hours && <Hours title={"Restaurant Hours"} hours={hours} />}
+            {description && <About name={name} description={description} />}
+            {logo && <img src={logo.image.url} />}
+          </div>
+        </div>
       </PageLayout>
+      {/* This component displays a link to the entity that represents the given page in the Knowledge Graph*/}
+      {!isProduction(siteDomain) && <EditTool data={document} />}
     </>
   );
 };
