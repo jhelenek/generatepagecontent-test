@@ -19,7 +19,6 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import * as React from "react";
-import Banner from "../components/banner";
 import Details from "../components/details";
 import Hours from "../components/hours";
 import List from "../components/list";
@@ -133,7 +132,6 @@ const Location: Template<TemplateRenderProps> = ({
   return (
     <>
       <PageLayout _site={_site}>
-        <Banner name={name} address={address} />
         <div>Descriptionn: {description}</div>
         <div>Site Title: {_site.c_siteTitle}</div>
         <div>Site Description: {_site.c_siteDescription}</div>
