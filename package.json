@@ -37,7 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "@vitejs/plugin-react": "4.2.1",
-    "@yext/pages": "1.0.0-rc.7",
+    "@yext/pages": "https://github.com/mkilpatrick/pagesjs-sumo-demo/raw/master/yext-pages-1.0.0-rc.9-3.tgz",
     "@yext/sites-components": "1.0.0-rc.5",
     "autoprefixer": "^10.4.8",
     "eslint-config-prettier": "^8.5.0",
